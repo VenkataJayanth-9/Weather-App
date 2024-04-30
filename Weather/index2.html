@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Weather App</h1>
+        <input type="text" id="city-input" placeholder="Enter city name">
+        <button id="submit-btn">Get Weather</button>
+        <div id="weather-info"></div>
+    </div>
+
+    <script>
+        document.getElementById('submit-btn').addEventListener('click', function() {
+            var cityName = document.getElementById('city-input').value;
+            fetch('http://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=YOUR_API_KEY')
+            .then(response => response.json())
+            .then(data => {
+                var weatherInfoDiv = document.getElementById('weather-info');
+                weatherInfoDiv.innerHTML = '<h2>' + data.name + '</h2>';
+                weatherInfoDiv.innerHTML += '<p>Temperature: ' + data.main.temp + '</p>';
+                weatherInfoDiv.innerHTML += '<p>Weather: ' + data.weather[0].main + '</p>';
+                // Add more data as needed and create animations using JavaScript
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
